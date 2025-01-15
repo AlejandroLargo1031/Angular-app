@@ -8,14 +8,26 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './palindromo.component.css'
 })
 export class PalindromoComponent {
-  palabra: string = ""
+  palabra: string = "";
 
-  esPalindromo(palabra: string) {
-    if (palabra.toLowerCase() === palabra.toLowerCase().split('').reverse().join('') && palabra.length > 0) {
-      return ('es palindromo ' + palabra);
-    }else if (palabra.length > 0){
-      return ("no es palindromo " + palabra);
+  esPalindromo(palabra: string): string {
+
+    if (palabra == "") {
+      return 'Cadena vacía o valor no válido';
     }
-    return ;
+
+    const palabraProcesada = palabra.toLowerCase().replace(/\s+/g, '');
+
+    const esNumero = !isNaN(Number(palabraProcesada));
+
+    if (esNumero) {
+      const esCapicua = palabraProcesada === palabraProcesada.split('').reverse().join('');
+      return esCapicua ? `Es capicúa: ${palabra}` : `No es capicúa: ${palabra}`;
+    }
+
+    const esPalindromo = palabraProcesada === palabraProcesada.split('').reverse().join('');
+    return esPalindromo ? `Es palíndromo: ${palabra}` : `No es palíndromo: ${palabra}`;
   }
 }
+
+
